@@ -225,7 +225,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="npm.start">
     <configuration name="dev" type="js.build_tools.npm" factoryName="npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -252,6 +252,8 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="npm.dev" />
+        <item itemvalue="npm.start" />
         <item itemvalue="npm.dev" />
         <item itemvalue="npm.start" />
       </list>
