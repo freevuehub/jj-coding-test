@@ -1,23 +1,11 @@
 <template>
   <el-row :gutter="20">
     <el-col :span="12" :offset="6">
-      <el-timeline>
-        <el-timeline-item timestamp="2018/4/12" placement="top">
-          <el-card>
-            <h4>Update Github template</h4>
-            <p>Tom committed 2018/4/12 20:46</p>
-          </el-card>
-        </el-timeline-item>
-        <el-timeline-item timestamp="2018/4/3" placement="top">
-          <el-card>
-            <h4>Update Github template</h4>
-            <p>Tom committed 2018/4/3 20:46</p>
-          </el-card>
-        </el-timeline-item>
-        <el-timeline-item timestamp="2018/4/2" placement="top">
-          <el-card>
-            <h4>Update Github template</h4>
-            <p>Tom committed 2018/4/2 20:46</p>
+      <el-timeline v-for="l in __TodoList" :key="l.idx">
+        <el-timeline-item :timestamp="l.date" placement="top">
+          <el-card shadow="hover">
+            <h4>{{ l.title }}</h4>
+            <p>{{ l.comment }}</p>
           </el-card>
         </el-timeline-item>
       </el-timeline>
@@ -26,16 +14,20 @@
 </template>
 
 <script>
-  import axios from 'axios';
+  import { mapGetters } from 'vuex';
 
   export default {
     name: 'ViewHome',
+    computed: {
+      ...mapGetters(['__TodoList'])
+    },
     methods: {
-      test() {
-        axios.get('/api/todo/list', { params: { mm: 2 } }).then(res => {
-          console.log(res);
-        })
+      async getTodoList() {
+        await this.$store.dispatch('callGetTodoList');
       }
+    },
+    created() {
+      this.getTodoList();
     }
   }
 </script>

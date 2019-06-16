@@ -2,17 +2,21 @@ const express = require('express');
 const app = express();
 
 app.get('/todo/list', function(req, res) {
-  console.log(req, res);
+  const now = new Date();
 
-  const test = {
-    aa: 1,
-    bb: 2,
-    cc: 3,
-    req: req,
-    res: res
-  };
-
-  res.send(test);
+  res.send({
+    status: 200,
+    items: {
+      list: [
+        {
+          idx: 1,
+          date: `${now.getFullYear()}/${now.getMonth() + 1}/${now.getDate()}`,
+          title: 'jj 코딩 테스트',
+          comment: '코딩 테스트 준비'
+        }
+      ]
+    }
+  });
 });
 
 module.exports = {
