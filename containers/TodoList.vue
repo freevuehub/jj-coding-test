@@ -8,7 +8,7 @@
           <transition-group name="el-zoom-in-top">
             <el-timeline-item :timestamp="l.date" placement="top" color="#399f62" v-for="l in $GetTodoList" :key="l.date">
               <transition-group name="el-zoom-in-top">
-                <el-card shadow="hover" v-for="n in l.items" :key="n.idx">
+                <el-card shadow="hover" v-for="n in l.items" :key="n.idx" style="margin-bottom: 10px;">
                   <TodoItem :item="n" />
                 </el-card>
               </transition-group>

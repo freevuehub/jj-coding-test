@@ -19,7 +19,7 @@ app.get('/todo/list', function(req, res) {
       complete: [
         {
           idx: 2,
-          date: `${now.getFullYear()}/${now.getMonth() + 1}/${now.getDate()}`,
+          date: `${now.getFullYear()}/${now.getMonth() < 9 && 0}${now.getMonth() + 1}/${now.getDate()}`,
           title: '프로젝트 생성',
           comment: '코딩 테스트 프로젝트 생성',
           checked: true

@@ -1,7 +1,7 @@
 <template>
   <el-row>
     <el-col :span="4">
-      <el-checkbox v-model="checked" label="완료" border></el-checkbox>
+      <el-checkbox v-model="checked" :label="checked ? '완료' : '진행중'" border></el-checkbox>
     </el-col>
     <el-col :span="17" :offset="1">
       <nuxt-link to="/">
