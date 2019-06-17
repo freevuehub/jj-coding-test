@@ -1,24 +1,29 @@
 import { Todo } from "../axios";
 
 export const state = () => ({
-  Todo: {
-    List: []
+  list: {
+    todo: [],
+    complete: []
   }
 });
 
 export const mutations = {
   $SetTodoList: (state, payload) => {
-    state.Todo.List = [ ...payload ];
-  }
+    state.list.todo = [ ...payload ];
+  },
+  $SetCompleteList: (state, payload) => {
+    state.list.complete = [ ...payload ];
+  },
 };
 
 export const actions = {
-  callGetTodoList: (store) => {
+  $CallGetTodoList: (store) => {
     return new Promise(async (resolve, reject) => {
       try {
         const { items } = await Todo.getList();
 
-        store.commit('$SetTodoList', items.list);
+        store.commit('$SetTodoList', items.todo);
+        store.commit('$SetCompleteList', items.complete);
 
         return resolve(items);
       } catch (e) {
@@ -31,5 +36,6 @@ export const actions = {
 };
 
 export const getters = {
-  __TodoList: state => state.Todo.List
+  $GetTodoList: state => state.list.todo,
+  $GetCompleteList: state => state.list.complete,
 };

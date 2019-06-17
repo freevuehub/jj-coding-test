@@ -1,13 +1,24 @@
 <template>
   <el-container>
-    <el-header style="text-align: right; font-size: 12px">
-      test
+    <el-header>
+      <Header />
     </el-header>
+
     <el-main>
       <nuxt />
     </el-main>
   </el-container>
 </template>
+
+<script>
+  import { Header } from '~/containers';
+
+  export default {
+    components: {
+      Header
+    }
+  }
+</script>
 
 <style>
   html {
@@ -29,7 +40,13 @@
     margin: 0;
   }
 
-  .el-header {
-    background-color: #399f62;
+  input:focus {
+    outline: none;
+    border: 0;
+  }
+
+  a {
+    text-decoration: none;
+    color: #000;
   }
 </style>
