@@ -1,31 +1,52 @@
 const express = require('express');
+const bodyParser = require('body-parser');
+const state = require('./TodoList');
 const app = express();
 
-app.get('/todo/list', function(req, res) {
-  const now = new Date();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended : true }));
+
+app.get('/todo/list', async (req, res) => {
+  const { todo, complete } = await state.getTodo();
 
   res.send({
     status: 200,
     items: {
       todo: [
-        {
-          idx: 1,
-          date: `${now.getFullYear()}/${now.getMonth() < 9 && 0}${now.getMonth() + 1}/${now.getDate()}`,
-          title: 'jj 코딩 테스트',
-          comment: '코딩 테스트 준비',
-          checked: false
-        }
+        ...todo
       ],
       complete: [
-        {
-          idx: 2,
-          date: `${now.getFullYear()}/${now.getMonth() < 9 && 0}${now.getMonth() + 1}/${now.getDate()}`,
-          title: '프로젝트 생성',
-          comment: '코딩 테스트 프로젝트 생성',
-          checked: true
-        }
+        ...complete
       ]
     }
+  });
+});
+
+app.post(`/todo/list/add`, async (req, res) => {
+  await state.setTodo(req.body, 'jjTodoList');
+
+  res.send({
+    status: 200,
+    message: '추가되었습니다.'
+  });
+});
+
+app.put(`/todo/list/:key`, async (req, res) => {
+  const data = await state.getTodo();
+
+  const bodyData = data[req.body.type].filter(l => `${l.idx}` === `${req.params.key}`)[0];
+
+  if (req.body.type === 'todo') {
+    await state.setTodo(bodyData, 'jjCompleteList');
+    await state.delTodo(req.params.key, 'jjTodoList');
+  } else {
+    await state.setTodo(bodyData, 'jjTodoList');
+    await state.delTodo(req.params.key, 'jjCompleteList');
+  }
+
+  res.send({
+    status: 200,
+    message: '.'
   });
 });
 

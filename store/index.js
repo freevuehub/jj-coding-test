@@ -51,6 +51,14 @@ export const actions = {
 
     return new Promise(async (resolve, reject) => {
       try {
+        await Todo.addTodo({
+          checked: false,
+          date: data.date.trim(),
+          idx: store.state.list.todo.length + store.state.list.complete.length + 1,
+          title: data.todo.trim(),
+          comment: '',
+        });
+
         store.commit('$SetTodoList', [
           ...todo,
           {
@@ -77,6 +85,8 @@ export const actions = {
 
     return new Promise(async (resolve, reject) => {
       try {
+        await Todo.putTodo(idx, checked ? 'todo' : 'complete');
+
         if (checked) {
           store.commit('$PutCompleteList', [{
             ...todo.filter(l => l.idx === idx)[0],

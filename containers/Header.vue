@@ -45,9 +45,15 @@
           });
         }
 
-        this.$store.dispatch('$CallAddTodoItem', {
+        await this.$store.dispatch('$CallAddTodoItem', {
           date: this.date,
           todo: this.todo
+        });
+
+        this.$notify({
+          title: '추가완료',
+          message: '추가되었습니다.',
+          type: 'success'
         });
       }
     }

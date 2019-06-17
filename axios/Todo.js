@@ -1,3 +1,4 @@
+import QS from 'qs';
 import Config from './Config';
 import { Notification } from 'element-ui';
 
@@ -14,6 +15,30 @@ export default {
   getList: () => {
     return new Promise((resolve, reject) => {
       Config.get(`/todo/list`)
+        .then(({ data }) => resolve(data))
+        .catch((err) => ErrorNotification(
+            err.response.data.error.message
+          )(
+            reject(err)
+        ));
+    });
+  },
+
+  addTodo: data => {
+    return new Promise((resolve, reject) => {
+      Config.post(`/todo/list/add`, data)
+        .then(({ data }) => resolve(data))
+        .catch((err) => ErrorNotification(
+            err.response.data.error.message
+          )(
+            reject(err)
+        ));
+    });
+  },
+
+  putTodo: (key, type) => {
+    return new Promise((resolve, reject) => {
+      Config.put(`/todo/list/${key}`, QS.stringify({ type: type }))
         .then(({ data }) => resolve(data))
         .catch((err) => ErrorNotification(
             err.response.data.error.message
