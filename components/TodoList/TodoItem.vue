@@ -27,7 +27,12 @@
     },
     data: (vm) => ({
       checked: vm.item.checked
-    })
+    }),
+    watch: {
+      checked(v) {
+        this.$store.dispatch('$CallPutTodoItem', { ...this.item, checked: v });
+      }
+    }
   }
 </script>
 

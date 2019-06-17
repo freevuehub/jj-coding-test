@@ -13,7 +13,7 @@
         </el-col>
         <el-col :span="16" :offset="3">
           <el-input placeholder="해야할 일" v-model="todo">
-            <el-button slot="append" icon="el-icon-s-promotion"></el-button>
+            <el-button slot="append" icon="el-icon-s-promotion" @click="addTodo"></el-button>
           </el-input>
         </el-col>
       </el-row>
@@ -27,7 +27,30 @@
     data: () => ({
       todo: '',
       date: ''
-    })
+    }),
+    methods: {
+      async addTodo() {
+        if (!this.date) {
+          return this.$message({
+            showClose: true,
+            type: 'error',
+            message: '날짜를 선택해주세요.'
+          });
+        }
+        if (!this.todo) {
+          return this.$message({
+            showClose: true,
+            type: 'error',
+            message: '해야할 일을 작성해주세요.'
+          });
+        }
+
+        this.$store.dispatch('$CallAddTodoItem', {
+          date: this.date,
+          todo: this.todo
+        });
+      }
+    }
   }
 </script>
 
