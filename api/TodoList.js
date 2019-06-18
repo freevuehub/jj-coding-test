@@ -19,6 +19,14 @@ const setTodo = (data, type) => new Promise(resolve => {
   return resolve();
 });
 
+const editTodo = (key, data, type) => new Promise(resolve => {
+  setLocal(type, JSON.parse(getLocal(type)).list.map(
+    l => `${l.idx}` === `${key}` ? data : l
+  ));
+
+  return resolve();
+});
+
 const delTodo = (key, type) => new Promise(resolve => {
   setLocal(
     type,
@@ -33,5 +41,6 @@ const delTodo = (key, type) => new Promise(resolve => {
 export {
   getTodo,
   setTodo,
+  editTodo,
   delTodo,
 };

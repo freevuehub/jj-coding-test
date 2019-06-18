@@ -37,16 +37,55 @@ app.put(`/todo/list/:key`, async (req, res) => {
   const bodyData = data[req.body.type].filter(l => `${l.idx}` === `${req.params.key}`)[0];
 
   if (req.body.type === 'todo') {
-    await state.setTodo(bodyData, 'jjCompleteList');
+    await state.setTodo({
+      ...bodyData,
+      checked: true
+    }, 'jjCompleteList');
     await state.delTodo(req.params.key, 'jjTodoList');
   } else {
-    await state.setTodo(bodyData, 'jjTodoList');
+    await state.setTodo({
+      ...bodyData,
+      checked: false
+    }, 'jjTodoList');
     await state.delTodo(req.params.key, 'jjCompleteList');
   }
 
   res.send({
     status: 200,
-    message: '.'
+    message: '반영되었습니다.'
+  });
+});
+
+app.put(`/todo/:key/edit`, async (req, res) => {
+  const data = await state.getTodo();
+  const bodyData = data.todo.filter(l => `${l.idx}` === `${req.params.key}`)[0];
+
+  await state.editTodo(
+    req.params.key,
+    {
+      ...bodyData,
+      title: req.body.title,
+      comment: req.body.comment
+    },
+    'jjTodoList'
+  );
+
+  res.send({
+    status: 200,
+    message: '반영되었습니다.'
+  });
+});
+
+app.delete(`/todo/delete/:key/:type`, async (req, res) => {
+  if (req.params.type === 'todo') {
+    await state.delTodo(req.params.key, 'jjTodoList');
+  } else {
+    await state.delTodo(req.params.key, 'jjCompleteList');
+  }
+
+  res.send({
+    status: 200,
+    message: '삭제되었습니다.'
   });
 });
 

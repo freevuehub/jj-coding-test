@@ -56,7 +56,7 @@ export const actions = {
           date: data.date.trim(),
           idx: store.state.list.todo.length + store.state.list.complete.length + 1,
           title: data.todo.trim(),
-          comment: '',
+          comment: data.comment.trim(),
         });
 
         store.commit('$SetTodoList', [
@@ -66,7 +66,7 @@ export const actions = {
             date: data.date.trim(),
             idx: store.state.list.todo.length + store.state.list.complete.length + 1,
             title: data.todo.trim(),
-            comment: '',
+            comment: data.comment.trim(),
           }
         ]);
 
@@ -108,6 +108,57 @@ export const actions = {
         return reject(e);
       }
     });
+  },
+
+  $CallEditTodoItem: (store, { idx, data }) => {
+    const todo = store.state.list.todo;
+
+    return new Promise(async (resolve, reject) => {
+      try {
+        await Todo.editTodo(
+          idx,
+          {
+            ...todo.filter(l => l.idx === idx)[0],
+            title: data.title,
+            comment: data.comment
+          }
+        );
+
+        store.commit(
+          '$SetTodoList',
+          todo.map(
+            l => l.idx === idx ? {
+              ...l,
+              ...data
+            } : l
+          )
+        );
+
+        return resolve();
+      } catch (e) {
+        console.error(e);
+
+        return reject(e);
+      }
+    });
+  },
+
+  $CallDelTodoItem: (store, { idx, type }) => {
+    const list = store.state.list[type];
+
+    return new Promise(async (resolve, reject) => {
+      try {
+        await Todo.delTodo(idx, type);
+
+        store.commit(type === 'todo' ? '$SetTodoList' : '$SetCompleteList', list.filter(l => l.idx !== idx));
+
+        return resolve();
+      } catch (e) {
+        console.error(e);
+
+        return reject(e);
+      }
+    });
   }
 };
 
@@ -131,6 +182,8 @@ export const getters = {
         items: [cur]
       }
     ];
-  }, []).reverse(),
+  }, []).sort(
+    (prev, cur) => new Date(prev.date) > new Date(cur.date) ? -1 : 1
+  ),
   $GetCompleteList: state => state.list.complete,
 };

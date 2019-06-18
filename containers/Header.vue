@@ -1,8 +1,8 @@
 <template>
   <el-row style="margin-top: 10px;">
-    <el-col :span="12" :offset="6">
+    <el-col :span="14" :offset="5">
       <el-row>
-        <el-col :span="4" :offset="1">
+        <el-col :span="6">
           <el-date-picker
             v-model="date"
             type="date"
@@ -11,8 +11,12 @@
             placeholder="날짜">
           </el-date-picker>
         </el-col>
-        <el-col :span="16" :offset="3">
-          <el-input placeholder="해야할 일" v-model="todo">
+        <el-col :span="7">
+          <el-input placeholder="제목" v-model="todo">
+          </el-input>
+        </el-col>
+        <el-col :span="11">
+          <el-input placeholder="내용" v-model="comment">
             <el-button slot="append" icon="el-icon-s-promotion" @click="addTodo"></el-button>
           </el-input>
         </el-col>
@@ -26,6 +30,7 @@
     name: 'Header',
     data: () => ({
       todo: '',
+      comment: '',
       date: ''
     }),
     methods: {
@@ -47,6 +52,7 @@
 
         await this.$store.dispatch('$CallAddTodoItem', {
           date: this.date,
+          comment: this.comment,
           todo: this.todo
         });
 

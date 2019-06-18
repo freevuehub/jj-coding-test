@@ -47,4 +47,28 @@ export default {
         ));
     });
   },
+
+  editTodo: (key, data) => {
+    return new Promise((resolve, reject) => {
+      Config.put(`/todo/${key}/edit`, QS.stringify(data))
+        .then(({ data }) => resolve(data))
+        .catch((err) => ErrorNotification(
+            err.response.data.error.message
+          )(
+            reject(err)
+        ));
+    });
+  },
+
+  delTodo: (key, type) => {
+    return new Promise((resolve, reject) => {
+      Config.delete(`/todo/delete/${key}/${type}`)
+        .then(({ data }) => resolve(data))
+        .catch((err) => ErrorNotification(
+            err.response.data.error.message
+          )(
+            reject(err)
+        ));
+    });
+  },
 }
