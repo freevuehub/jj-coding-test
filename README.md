@@ -1,22 +1,33 @@
 # jj-coding-test
 
-> My first-class Nuxt.js project
+개발자 홍성준 입니다.
+
+요청한 코딩테스트를 완료했습니다.
+
+##### 기본사항
+* Vue.js를 사용했습니다.
+* 할 일 목록(등록 / 수정 / 삭세)를 구현했습니다.
+* 제목과 내용 부분을 입력하게 구현했습니다.
+* 새로고침을 해도 목록은 유지됩니다.
+* 진행 목록과 완료 항목을 나누어 보여줍니다.
+* 1번의 클릭으로 상태가 변경됩니다.
+* SPA 형태로 제작했습니다.
+* express를 이용하여 API를 만들었습니다.
+* ES6 문법을 활용했습니다.
+* Element-UI를 활용했습니다.
+
+##### 추가사항
+* Nux.js를 사용했습니다.
+
+##### 참고사항
+* yarn을 사용했습니다.
 
 ## Build Setup
 
 ``` bash
-# install dependencies
+# node module 설치
 $ yarn install
 
-# serve with hot reload at localhost:3000
+# localhost:3000에서 확인
 $ yarn run dev
-
-# build for production and launch server
-$ yarn run build
-$ yarn start
-
-# generate static project
-$ yarn run generate
 ```
-
-For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).

@@ -5,11 +5,7 @@
   "author": "홍성준",
   "private": true,
   "scripts": {
-    "test": "jest",
-    "dev": "cross-env NODE_ENV=development nodemon server/index.js --watch server",
-    "build": "nuxt build",
-    "start": "cross-env NODE_ENV=production node server/index.js",
-    "generate": "nuxt generate"
+    "dev": "cross-env NODE_ENV=development nodemon server/index.js --watch server"
   },
   "dependencies": {
     "axios": "^0.19.0",
