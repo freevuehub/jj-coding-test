@@ -11,7 +11,7 @@
     "axios": "^0.21.2",
     "cross-env": "^5.2.0",
     "element-ui": "^2.4.11",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "localStorage": "^1.0.4",
     "nuxt": "^2.0.0",
     "qs": "^6.7.0"
